@@ -248,7 +248,8 @@ class TestRssOnline:
 
     """
 
-    def test_rss_online(self, execute_task, use_vcr):
+    @pytest.mark.online
+    def test_rss_online(self, execute_task):
         # Make sure entries are created for all test tasks
         tasks = yaml.safe_load(self.config)['tasks']
         for task in tasks:
