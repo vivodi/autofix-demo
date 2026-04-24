@@ -128,6 +128,10 @@ def use_vcr(request, monkeypatch):
 
     The record mode of VCR can be set using the VCR_RECORD_MODE environment variable when running tests.
     """
+    if request.node.get_closest_marker('online') is None:
+        raise RuntimeError(
+            "The 'use_vcr' fixture can only be used in tests marked with @pytest.mark.online"
+        )
     if VCR_RECORD_MODE == 'off':
         yield None
     else:
@@ -148,7 +152,7 @@ def use_vcr(request, monkeypatch):
             yield cassette
         if not cassette_path.exists():
             raise RuntimeError(
-                'No cassette found or generated. Hint: If the test does not require network access, `@pytest.mark.online` should be removed.'
+                'No cassette found or generated. Hint: If the test does not require network access, @pytest.mark.online should be removed.'
             )
 
 

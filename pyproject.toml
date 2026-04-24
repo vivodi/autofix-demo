@@ -221,6 +221,7 @@ lint.per-file-ignores."flexget/*" = [ "PTH" ] # TODO
 lint.flake8-type-checking.quote-annotations = true
 lint.isort.known-first-party = [ 'flexget' ]
 lint.future-annotations = true
+per-file-target-version."scripts/cleanup_cassettes.py" = "py312"
 
 [tool.codespell]
 skip = [

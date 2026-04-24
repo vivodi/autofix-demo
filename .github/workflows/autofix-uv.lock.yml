@@ -3,23 +3,23 @@ on:
   push:
     branches: [develop]
     paths:
-      - .github/workflows/autofix.yml
+      - .github/workflows/autofix-uv.lock.yml
       - pyproject.toml
       - uv.lock
   pull_request:
     paths:
-      - .github/workflows/autofix.yml
+      - .github/workflows/autofix-uv.lock.yml
       - pyproject.toml
       - uv.lock
 permissions: {}
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref || github.run_id }}
+  group: ${{ github.workflow_ref }}-${{ github.event.number || github.ref || github.run_id }}
   cancel-in-progress: true
 env:
   UV_VERSION: 0.8.14 # renovate: datasource=pypi depName=uv
 jobs:
   uv-lock:
-    name: autofix uv.lock
+    name: synchronize uv.lock
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
